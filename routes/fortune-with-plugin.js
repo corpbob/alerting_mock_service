@@ -1,11 +1,21 @@
 const NS_PER_SEC = 1e9;
 var service_token = process.env.SERVICE_TOKEN;
 var service_id = process.env.SERVICE_ID;
+var host_3scale = process.env.HOST_3SCALE;
+var port_3scale = process.env.PORT_3SCALE;
 var express = require('express');
 var router = express.Router();
 
 var Client = require('3scale').Client;
-client = new Client();
+
+if(host_3scale && port_3scale){
+  console.log("Using host ", host_3scale, " at port ", port_3scale);
+  client = new Client({host: host_3scale, port: port_3scale});
+} else {
+  console.log("Using default 3scale backend");
+  client = new Client();
+}
+
 child_process = require('child_process');
 
 
@@ -36,6 +46,7 @@ function report_usage(req) {
 router.get('/', function (req, res, next) {
     const time = process.hrtime();
     var fortune = child_process.execSync('fortune');
+    console.log(fortune.toString());
     const diff = process.hrtime(time);
 
     cpu = Math.ceil((diff[0] * NS_PER_SEC + diff[1]) / 1000000);
