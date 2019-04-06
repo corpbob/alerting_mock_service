@@ -1,1 +1,5 @@
-This project is a simple API to generate fortune cookies using the fortune command.
+This project is a webhook to test prometheus alerting.
+
+To call this:
+
+curl -v -XPOST -H "Content-Type: application/json" http://127.0.0.1:3000/service -d <json input>
