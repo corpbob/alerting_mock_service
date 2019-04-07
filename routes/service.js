@@ -15,18 +15,30 @@ function valid(){
 
 router.post('/', function(req, res, next) {
   if(valid()){
+
     var twilio = require('twilio');
     
     var client = new twilio(accountSid, authToken);
     
     console.log("Sending SMS");
-    
-    client.messages.create({
-        body: 'Hello from Node',
-        to: sendToNumbers,   // Text this number
-        from: sendingNumber  // From a valid Twilio number
-    })
-    .then((message) => console.log(message.sid));
+
+    var numbers = sendToNumbers.split(",")    
+    if(numbers && numbers.length > 0){
+      numbers.forEach(function(phoneNumber){
+        console.log("Sending to ", phoneNumber);
+        var payload = {
+            body: 'Test from Globe POC',
+            to: phoneNumber,   // Text this number
+            from: sendingNumber  // From a valid Twilio number
+        }
+        console.log(payload);
+
+        if(true){ 
+          client.messages.create(payload)
+          .then((message) => console.log(message.sid));
+        }
+      });
+    }
   
     console.log("Done calling send");
   } else {
