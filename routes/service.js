@@ -14,7 +14,12 @@ function valid(){
 }
 
 router.post('/', function(req, res, next) {
-  console.log(req.body);
+  var content = req.body;
+  console.log(content);
+
+  var message="Alert: " + content.commonAnnotations.summary + ", severity: " + content.commonLabels.severity + ", status: " + content.status;
+  console.log(message);
+
   if(valid()){
 
     var twilio = require('twilio');
@@ -28,7 +33,7 @@ router.post('/', function(req, res, next) {
       numbers.forEach(function(phoneNumber){
         console.log("Sending to ", phoneNumber);
         var payload = {
-            body: 'Test from Globe POC',
+            body: message,
             to: phoneNumber,   // Text this number
             from: sendingNumber  // From a valid Twilio number
         }
