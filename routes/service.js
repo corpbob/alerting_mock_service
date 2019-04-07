@@ -14,6 +14,7 @@ function valid(){
 }
 
 router.post('/', function(req, res, next) {
+  console.log(req.body);
   if(valid()){
 
     var twilio = require('twilio');
