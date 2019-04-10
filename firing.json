@@ -1,0 +1,17 @@
+{
+	"receiver": "web.hook",
+	"status": "firing",
+
+	"groupLabels": {
+		"alertname": "HighErrorRate"
+	},
+	"commonLabels": {
+		"alertname": "HighErrorRate",
+		"severity": "critical"
+	},
+	"commonAnnotations": {
+		"summary": "High request latency"
+	},
+	"externalURL": "http://alertmanager-sms-1-w6kbf:9093",
+	"version": "4"
+}
