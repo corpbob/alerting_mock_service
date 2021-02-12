@@ -50,8 +50,9 @@ router.post('/', function(req, res, next) {
         payload.annotations.description = content.created_by + " : " + body;
       }
     }
-    console.log('curl -v -XPOST -H \"Content-Type: application/json\" ' + alert_manager_url + " -d '" + JSON.stringify([payload]) + "'");
-    //var fortune = child_process.execSync('curl -v -H "Content-Type: application/json" ' + alert_manager_url + " -d '" + stringify(payload) + "'");
+    var curl = 'curl -v -XPOST -H \"Content-Type: application/json\" ' + alert_manager_url + " -d '" + JSON.stringify([payload]) + "'";
+    var curl_out = child_process.execSync(curl);
+    console.log(curl_out.toString());
   }
   res.status(200).end();
 
