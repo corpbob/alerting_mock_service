@@ -4,6 +4,7 @@ var router = express.Router();
 var fs = require('fs');
 
 var towerhost = process.env.TOWER_HOST;
+var alert_manager_url = process.env.ALERT_MANAGER_URL;
 
 router.post('/', function(req, res, next) {
   var content = req.body;
@@ -49,7 +50,8 @@ router.post('/', function(req, res, next) {
         payload.annotations.description = content.created_by + " : " + body;
       }
     }
-    console.log(payload);
+    console.log('curl -v -XPOST -H \"Content-Type: application/json\" ' + alert_manager_url + " -d '" + JSON.stringify([payload]) + "'");
+    //var fortune = child_process.execSync('curl -v -H "Content-Type: application/json" ' + alert_manager_url + " -d '" + stringify(payload) + "'");
   }
   res.status(200).end();
 
